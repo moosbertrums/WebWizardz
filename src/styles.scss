@@ -2,3 +2,8 @@
 // Custom Theming for Angular Material
 // For more information: https://material.angular.dev/guide/theming
 @import "tailwindcss";
+
+.cdk-drop-list-dragging:not(.elements-menu) {
+  border: 2px solid lightgray !important;
+  background-color: lightgray !important;
+}

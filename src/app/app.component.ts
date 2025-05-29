@@ -3,6 +3,7 @@ import { RouterOutlet } from '@angular/router';
 import {PosterCanvasComponent} from './components/poster-canvas/poster-canvas.component';
 import {PosterElementsComponent} from './components/poster-elements/poster-elements.component';
 import {PosterSettingsComponent} from './components/poster-settings/poster-settings.component';
+import {DragDropModule} from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-root',
@@ -11,6 +12,7 @@ import {PosterSettingsComponent} from './components/poster-settings/poster-setti
     PosterCanvasComponent,
     PosterElementsComponent,
     PosterSettingsComponent,
+    DragDropModule
   ],
   template: `
     <div class="flex flex-col h-screen bg-red-100 px-4">
@@ -22,7 +24,7 @@ import {PosterSettingsComponent} from './components/poster-settings/poster-setti
           Ontwerp je eigen poster met behulp van deze to00000ol!
         </p>
       </div>
-      <div class="flex gap-4">
+      <div class="flex gap-4" cdkDropListGroup>
         <app-poster-elements class="w-64" />
         <app-poster-canvas class="flex-1" />
         <app-poster-settings class="w-64" />
