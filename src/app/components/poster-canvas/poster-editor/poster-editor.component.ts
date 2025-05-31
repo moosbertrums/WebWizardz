@@ -8,17 +8,21 @@ import {PosterFieldComponent} from '../poster-field/poster-field.component';
   selector: 'app-poster-editor',
   imports: [DragDropModule, PosterFieldComponent],
   template: `
-    <div class="p-4">
+    <div class="py-4">
     @for (row of posterService.rows(); track row.id) {
       <div
         cdkDropList
         (cdkDropListDropped)="onDropInRow($event, row.id)"
         [cdkDropListOrientation]="'mixed'"
         class="p-4 bg-white rounded-lg border-2 border-dashed border-gray-200">
-      <div>Row</div>
-        <div class="flex gap-4 flex-wrap">
+<!--      <div>Row</div> -->
+        <div class="flex flex-wrap">
         @for (field of row.fields; track field.id) {
-          <app-poster-field class="flex-1" [field]="field" />
+          <app-poster-field cdkDrag [cdkDragData]="field" class="flex-1" [field]="field" />
+        } @empty {
+          <div class="w-full p-4 border border-dashed border-primary-container rounded-lg border-gray-200">
+            Drag and drop poster elements here
+          </div>
         }
         </div>
       </div>
