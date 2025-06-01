@@ -6,8 +6,8 @@ import {FieldPreviewComponent} from '../field-preview/field-preview.component';
   selector: 'app-poster-preview',
   imports: [FieldPreviewComponent],
   template: `
-    <div class="py-4">
-      <div class="p-4 flex flex-col gap-4 shadow-md rounded-lg border border-gray-200">
+    <div class="">
+      <div class="p-4 h-[calc(100vh-250px)] flex flex-col gap-4 shadow-md rounded-lg border border-gray-200">
         @for (row of posterService.rows(); track row.id) {
           <div class="flex flex-wrap">
             @for (field of row.fields; track field.id) {

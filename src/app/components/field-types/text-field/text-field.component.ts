@@ -7,8 +7,7 @@ import {PosterField} from '../../../models/field';
   selector: 'app-text-field',
   imports: [MatFormFieldModule, MatInputModule],
   template: `
-    <mat-form-field class="w-full">
-      <mat-label>{{ field().label }}</mat-label>
+    <mat-form-field class="">
       <input
         matInput
         [type]="field().inputType  || 'text'"

@@ -19,6 +19,9 @@ export class PosterService {
     ]);
   }
 
+
+
+
   addField(field: PosterField, rowId: string, index?: number) {
     const rows = this._rows();
     const newRows = rows.map(row => {
@@ -46,4 +49,5 @@ export class PosterService {
 
     this._rows.set(newRows);
   }
+
 }

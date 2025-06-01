@@ -11,9 +11,9 @@ import {FieldPreviewComponent} from '../field-preview/field-preview.component';
   selector: 'app-poster-field',
   imports: [NgComponentOutlet, TitleCasePipe, MatButtonModule, MatIconModule, FieldPreviewComponent],
   template: `
-    <div class="bg-white p-4 rounded-lg shadow-sm border-gray-200 hover:border-black cursor-pointer">
-      <div class="flex item-center justify-between mb-1">
-        <span>{{ field().type | titlecase }}</span>
+    <div class="p-4 rounded-lg shadow-sm border-gray-200 hover:border-black">
+      <div  class="flex item-center justify-between mb-1">
+   <!--     <span>{{ field().type | titlecase }}</span> -->
         <button mat-icon-button (click)="deleteField($event)">
           <mat-icon class="-mr-2">delete</mat-icon>
         </button>
@@ -34,4 +34,5 @@ export class PosterFieldComponent {
     e.stopPropagation();
     this.posterService.deleteField(this.field().id);
 }
+
 }

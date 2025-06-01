@@ -1,33 +1,49 @@
 import { Component , inject} from '@angular/core';
-import {CdkDragDrop, DragDropModule} from '@angular/cdk/drag-drop';
+import {CdkDrag, CdkDragDrop, DragDropModule} from '@angular/cdk/drag-drop';
 import {PosterService} from '../../../services/poster.service';
 import {FieldTypeDefinition, PosterField} from '../../../models/field';
 import {PosterFieldComponent} from '../poster-field/poster-field.component';
+import {ResizableModule, ResizeEvent} from 'angular-resizable-element';
+import {MatButtonModule} from '@angular/material/button';
+import {MatIconModule} from '@angular/material/icon';
 
 @Component({
   selector: 'app-poster-editor',
-  imports: [DragDropModule, PosterFieldComponent],
+  imports: [DragDropModule, PosterFieldComponent, CdkDrag, ResizableModule, MatButtonModule, MatIconModule],
   template: `
-    <div class="py-4">
-    @for (row of posterService.rows(); track row.id) {
-      <div
-        cdkDropList
-        (cdkDropListDropped)="onDropInRow($event, row.id)"
-        [cdkDropListOrientation]="'mixed'"
-        class="p-4 bg-white rounded-lg border-2 border-dashed border-gray-200">
-<!--      <div>Row</div> -->
-        <div class="flex flex-wrap">
-        @for (field of row.fields; track field.id) {
-          <app-poster-field cdkDrag [cdkDragData]="field" class="flex-1" [field]="field" />
-        } @empty {
-          <div class="w-full p-4 border border-dashed border-primary-container rounded-lg border-gray-200">
-            Drag and drop poster elements here
+    <div class="">
+      @for (row of posterService.rows(); track row.id) {
+        <div
+          class="boundary h-flex rounded-lg border-2 border-dashed border-gray-200">
+          <div
+            class="rounded-lg border-2 border-dashed border-gray-200"
+            cdkDropList
+            (cdkDropListDropped)="onDropInRow($event, row.id)"
+          >
+            <div class="w-full p-4 border border-dashed border-primary-container rounded-lg border-gray-200">
+              Drag and drop poster elements here
+            </div>
           </div>
-        }
+          <div class="flex flex-wrap">
+            @for (field of row.fields; track field.id) {
+              <!-- Resizable content -->
+
+              <app-poster-field
+                cdkDrag
+                cdkDragBoundary=".boundary"
+                [cdkDragData]="field"
+                [field]="field"
+              >
+                <div
+                >
+                </div>
+              </app-poster-field>
+            }
+          </div>
         </div>
-      </div>
       }
     </div>
+
   `,
   styles: ``
 })
