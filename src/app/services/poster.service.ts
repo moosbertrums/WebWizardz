@@ -1,4 +1,4 @@
-import {Injectable, signal} from '@angular/core';
+import {computed, Injectable, signal} from '@angular/core';
 import {PosterRow} from '../models/poster';
 import {PosterField} from '../models/field';
 
@@ -8,7 +8,10 @@ import {PosterField} from '../models/field';
 export class PosterService {
 
   private _rows = signal<PosterRow[]>([]);
+  private _selectedFieldId = signal<string | null>(null);
   public readonly rows = this._rows.asReadonly();
+
+  public readonly selectedField = computed(() => this._rows().flatMap(row => row.fields).find(f => f.id === this._selectedFieldId()));
 
   constructor() {
     this._rows.set([
@@ -17,6 +20,7 @@ export class PosterService {
         fields: [],
       },
     ]);
+
   }
 
 
@@ -50,4 +54,16 @@ export class PosterService {
     this._rows.set(newRows);
   }
 
+  setSelectedField(fieldId: string) {
+    this._selectedFieldId.set(fieldId);
+  }
+
+  updateField(fieldId: string, data: Partial<PosterField>) {
+    const rows = this._rows();
+    const newRows = rows.map(row => ({
+      ...row,
+      fields: row.fields.map(f => f.id === fieldId ? { ...f, ...data } : f)
+    }));
+    this._rows.set(newRows);
+  }
 }

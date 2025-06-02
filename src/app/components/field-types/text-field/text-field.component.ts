@@ -7,11 +7,12 @@ import {PosterField} from '../../../models/field';
   selector: 'app-text-field',
   imports: [MatFormFieldModule, MatInputModule],
   template: `
-    <mat-form-field class="">
+    <mat-form-field class="size-full bg-white">
       <input
         matInput
         [type]="field().inputType  || 'text'"
         [required]="field().required"
+        [placeholder]="field().placeholder || ''"
       />
     </mat-form-field>
   `,

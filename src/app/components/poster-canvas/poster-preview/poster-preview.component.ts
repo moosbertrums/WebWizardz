@@ -1,18 +1,21 @@
 import {Component, inject} from '@angular/core';
 import {PosterService} from '../../../services/poster.service';
 import {FieldPreviewComponent} from '../field-preview/field-preview.component';
+import {PosterStateService} from '../../../services/poster-state.service';
 
 @Component({
   selector: 'app-poster-preview',
   imports: [FieldPreviewComponent],
   template: `
     <div class="">
-      <div class="p-4 h-[calc(100vh-250px)] flex flex-col gap-4 shadow-md rounded-lg border border-gray-200">
+      <div
+        [class]="state.imageSize"
+        class="transition-all duration-300 flex flex-col shadow-md rounded-lg border border-gray-200 overflow-hidden">
         @for (row of posterService.rows(); track row.id) {
-          <div class="flex flex-wrap">
+          <div class="">
             @for (field of row.fields; track field.id) {
               <div>
-                <app-field-preview class ="flex-1" [field]="field" />
+                <app-field-preview class ="" [field]="field" />
               </div>
             }
           </div>
@@ -24,5 +27,5 @@ import {FieldPreviewComponent} from '../field-preview/field-preview.component';
   styles: ``
 })
 export class PosterPreviewComponent {
-  posterService = inject(PosterService);
+  constructor(public state: PosterStateService, public posterService: PosterService) {}
 }

@@ -2,8 +2,24 @@ import { Injectable } from '@angular/core';
 import { FieldTypeDefinition } from '../models/field';
 import {TextFieldComponent} from '../components/field-types/text-field/text-field.component';
 import {CheckboxFieldComponent} from '../components/field-types/checkbox-field/checkbox-field.component';
+import {HeaderFooterFieldComponent} from '../components/field-types/header-footer-field/header-footer-field.component';
 
-const TEXT_FIELD_DEFINITION = {
+const HEADER_FOOTER_FIELD_DEFINITION: FieldTypeDefinition = {
+  type: 'header_footer',
+  label: 'Header/Footer',
+  icon: 'home',
+  defaultConfig: {
+    label: 'Header/Footer',
+    required: false,
+  },
+  settingsConfig: [
+    {type: 'text', key: 'label', label: 'Label'},
+    {type: 'checkbox', key: 'required', label: 'Required'},
+  ],
+  component: HeaderFooterFieldComponent
+}
+
+const TEXT_FIELD_DEFINITION: FieldTypeDefinition = {
   type: 'text',
   label: 'Text Field',
   icon: 'text_fields',
@@ -11,10 +27,22 @@ const TEXT_FIELD_DEFINITION = {
     label: 'Text Field',
     required: false,
   },
+  settingsConfig: [
+    {type: 'text', key: 'label', label: 'Label'},
+    {type: 'text', key: 'placeholder', label: 'Placeholder'},
+    {type: 'checkbox', key: 'required', label: 'Required'},
+    {type: 'select', key: 'inputType', label: 'Input Type', options: [
+        {value: 'text', label: 'Text'},
+        {value: 'number', label: 'Number'},
+        {value: 'email', label: 'Email'},
+        {value: 'tel', label: 'Phone'},
+      ],
+    },
+  ],
   component: TextFieldComponent
 }
 
-const CHECKBOX_FIELD_DEFINITION = {
+const CHECKBOX_FIELD_DEFINITION: FieldTypeDefinition = {
   type: 'checkbox',
   label: 'Checkbox',
   icon: 'check_box',
@@ -22,6 +50,10 @@ const CHECKBOX_FIELD_DEFINITION = {
     label: 'Checkbox',
     required: false,
   },
+  settingsConfig: [
+    {type: 'text', key: 'label', label: 'Label'},
+    {type: 'checkbox', key: 'required', label: 'Required'},
+  ],
   component: CheckboxFieldComponent
 }
 
@@ -31,8 +63,9 @@ const CHECKBOX_FIELD_DEFINITION = {
 export class FieldTypesService {
 
   fieldTypes = new Map<string, FieldTypeDefinition>([
-    ['text', TEXT_FIELD_DEFINITION],
+    ['header-footer', HEADER_FOOTER_FIELD_DEFINITION],
     ['checkbox', CHECKBOX_FIELD_DEFINITION],
+    ['text', TEXT_FIELD_DEFINITION],
   ]);
 
   getFieldType(type:string): FieldTypeDefinition | undefined {
